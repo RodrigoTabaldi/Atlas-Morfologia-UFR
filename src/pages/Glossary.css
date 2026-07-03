@@ -1,0 +1,191 @@
+.glossary-controls-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.glossary-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.glossary-search:focus-within {
+  border-color: var(--cobalto);
+  box-shadow: 0 0 0 3px var(--cobalto-soft);
+}
+
+.glossary-search svg {
+  width: 18px;
+  height: 18px;
+  color: var(--ink-faint);
+  flex-shrink: 0;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.glossary-search:focus-within svg {
+  color: var(--cobalto);
+  transform: scale(1.08);
+}
+
+.glossary-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  color: var(--ink);
+  font-family: inherit;
+}
+
+.glossary-search input::placeholder {
+  color: var(--ink-faint);
+}
+
+.glossary-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.glossary-filters button {
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper-raised);
+  color: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.15s ease,
+    border-color 0.15s ease, color 0.15s ease;
+}
+
+.glossary-filters button:hover {
+  border-color: var(--cobalto);
+  color: var(--ink);
+  transform: translateY(-1px);
+}
+
+.glossary-filters button.is-active {
+  background: var(--azul);
+  border-color: var(--azul);
+  color: #fff;
+}
+
+.glossary-filters button:active {
+  transform: scale(0.95);
+}
+
+.glossary-results-section {
+  min-height: 200px;
+}
+
+.glossary-empty {
+  font-size: 14.5px;
+  color: var(--ink-faint);
+  font-style: italic;
+  text-align: center;
+  padding: 32px 0;
+}
+
+.glossary-list {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.glossary-item {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  background: var(--paper-raised);
+  transition: box-shadow 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  opacity: 0;
+  animation: glossaryItemIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--item-delay, 0ms);
+}
+
+@keyframes glossaryItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.glossary-item:hover {
+  box-shadow: var(--shadow-card);
+  border-color: var(--line-strong);
+  transform: translateX(2px);
+}
+
+.glossary-item-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.glossary-item dt {
+  font-family: var(--font-display);
+  font-size: 16.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.glossary-item dd {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.glossary-area-tag {
+  flex-shrink: 0;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.area-citologia {
+  background: var(--azul-soft);
+  color: var(--azul);
+}
+
+.area-histologia {
+  background: var(--verde-soft);
+  color: var(--verde);
+}
+
+.area-embriologia {
+  background: var(--cobalto-soft);
+  color: var(--cobalto);
+}
+
+.area-anatomia {
+  background: var(--ambar-soft);
+  color: var(--ambar);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glossary-item {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

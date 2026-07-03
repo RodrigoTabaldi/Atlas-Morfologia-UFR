@@ -1,0 +1,132 @@
+/* ============================================================
+   MORFOLOGIA EM FOCO — Design tokens
+   Paleta derivada da identidade da UFR, tratada como ciência
+   impressa: papel claro, tinta densa, quatro acentos de plca.
+   ============================================================ */
+
+:root {
+  /* ---- Superfícies ---- */
+  --paper: #f7f5ef;          /* fundo geral, papel de atlas */
+  --paper-raised: #fffdf8;   /* cartões, pranchas */
+  --paper-deep: #efebe0;     /* faixas, hover sutil */
+  --ink: #1a1d26;            /* texto principal, quase preto azulado */
+  --ink-soft: #4d5160;       /* texto secundário */
+  --ink-faint: #8c8d92;      /* legendas, metadados */
+  --line: #ddd7c6;           /* bordas em tom de papel */
+  --line-strong: #c7bfa6;
+
+  /* ---- Acentos (tirados da marca UFR) ---- */
+  --azul: #1b3361;           /* marinho - Unidade I / institucional */
+  --azul-soft: #e6eaf2;
+  --cobalto: #1c75bc;        /* azul médio da marca */
+  --cobalto-soft: #e3effa;
+  --verde: #4f9a5c;          /* verde da marca, dessaturado */
+  --verde-soft: #e7f1e8;
+  --ambar: #b5743a;          /* terracota/âmbar — acento de "interativo" */
+  --ambar-soft: #f3e9dc;
+
+  /* ---- Status ---- */
+  --status-available: #3f7d4a;
+  --status-production: #b5743a;
+  --status-planned: #8c8d92;
+
+  /* ---- Tipografia ---- */
+  --font-display: "Source Serif 4", "Iowan Old Style", "Georgia", serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace;
+
+  /* ---- Escala ---- */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --shadow-card: 0 1px 2px rgba(26, 29, 38, 0.06), 0 4px 16px rgba(26, 29, 38, 0.05);
+  --shadow-raised: 0 8px 28px rgba(26, 29, 38, 0.12);
+
+  --sidebar-w: 296px;
+  --content-max: 1180px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--cobalto);
+  color: white;
+}
+
+:focus-visible {
+  outline: 2px solid var(--cobalto);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---------- Shared buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 22px;
+  border-radius: var(--radius-md);
+  font-size: 14.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.btn:active {
+  transform: scale(0.96);
+}
+
+.btn-primary {
+  background: var(--azul);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 14px rgba(27, 51, 97, 0.28);
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(27, 51, 97, 0.32);
+}
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+}
+
+.btn-ghost:hover {
+  background: var(--paper-deep);
+}

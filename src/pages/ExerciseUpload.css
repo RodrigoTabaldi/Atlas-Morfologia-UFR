@@ -1,0 +1,223 @@
+.upload-page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 40px 80px;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ink-faint);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: uploadFadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.breadcrumb a:hover {
+  color: var(--ink);
+}
+
+.breadcrumb-current {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@keyframes uploadFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.upload-header {
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: uploadFadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.06s forwards;
+}
+
+.upload-eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  margin: 0 0 10px;
+}
+
+.upload-header h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 38px);
+  font-weight: 600;
+  margin: 0 0 10px;
+  color: var(--ink);
+}
+
+.upload-lede {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+/* ---------- Empty state ---------- */
+.upload-empty {
+  text-align: center;
+  padding: 56px 24px;
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-md);
+  background: var(--paper-raised);
+  opacity: 0;
+  animation: uploadFadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.12s forwards;
+}
+
+.upload-empty-icon {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 16px;
+  color: var(--ink-faint);
+}
+
+.upload-empty-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.upload-empty-title {
+  margin: 0 0 6px;
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.upload-empty-hint {
+  margin: 0;
+  font-size: 14px;
+  color: var(--ink-faint);
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.55;
+}
+
+/* ---------- Exercise file list ---------- */
+.exercise-file-list {
+  list-style: none;
+  margin: 0 0 28px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  animation: uploadFadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.12s forwards;
+}
+
+.exercise-file-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper-raised);
+  opacity: 0;
+  animation: uploadItemIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--item-delay, 0ms);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease;
+}
+
+.exercise-file-item:hover {
+  border-color: var(--accent);
+  box-shadow: var(--shadow-card);
+  transform: translateX(2px);
+}
+
+@keyframes uploadItemIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.exercise-file-icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  color: var(--accent);
+}
+
+.exercise-file-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.exercise-file-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.exercise-file-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.exercise-file-description {
+  font-size: 12.5px;
+  color: var(--ink-faint);
+}
+
+.exercise-file-action {
+  flex-shrink: 0;
+  padding: 9px 16px;
+  font-size: 13px;
+}
+
+/* ---------- Actions ---------- */
+.upload-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.upload-actions-back {
+  justify-content: flex-start;
+  border-top: 1px solid var(--line);
+  padding-top: 24px;
+}
+
+@media (max-width: 600px) {
+  .upload-page {
+    padding: 24px 20px 60px;
+  }
+
+  .upload-actions-back {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .breadcrumb,
+  .upload-header,
+  .upload-empty,
+  .exercise-file-list,
+  .exercise-file-item {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

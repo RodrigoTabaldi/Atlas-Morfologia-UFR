@@ -1,0 +1,55 @@
+.exercise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.exercise-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper-raised);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.exercise-pill:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-card);
+  border-color: var(--cobalto);
+}
+
+.exercise-pill-tag {
+  flex-shrink: 0;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+  background: var(--paper-deep);
+  padding: 3px 9px;
+  border-radius: 999px;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.exercise-pill-tag.has-content {
+  background: var(--verde-soft);
+  color: var(--verde);
+}
+
+.exercise-pill:hover .exercise-pill-tag {
+  background: var(--cobalto-soft);
+  color: var(--cobalto);
+}
+
+.exercise-pill:hover .exercise-pill-tag.has-content {
+  background: var(--verde-soft);
+  color: var(--verde);
+}
