@@ -50,7 +50,7 @@ export default function About() {
         <p>
           Projeto coordenado pelo Prof. Dr. Jorge Willian Franco de Barros, com a
           colaboração dos Profs. Dr. Felipe Cantore Tiburcio e Dra. Azize Cristina Capelli
-          Nassr, da Faculdade de Ciências da Saúde (FCS – UFR), e discentes dos cursos de
+          Nassr, da Faculdade de Ciências da Saúde (FCS, UFR), e discentes dos cursos de
           Medicina, Enfermagem, Fonoaudiologia, Terapia Ocupacional e Ciências
           Biológicas da UFR.
         </p>
@@ -62,9 +62,10 @@ export default function About() {
           Esta interface organiza os 15 tópicos morfológicos previstos no projeto em
           formato de atlas digital interativo, servindo de estrutura de navegação para o
           conteúdo visual e textual que será produzido ao longo do desenvolvimento do
-          trabalho — diagramas interativos, galerias fotográficas de lâminas e peças
+          trabalho, com diagramas interativos, galerias fotográficas de lâminas e peças
           anatômicas, e textos descritivos revisados por pares.
         </p>
+        <p>Desenvolvedor da versão digital e aluno de Engenharia de Software: Rodrigo Tabaldi.</p>
       </section>
     </article>
   );

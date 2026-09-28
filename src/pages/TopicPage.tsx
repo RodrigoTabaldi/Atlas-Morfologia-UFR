@@ -109,7 +109,7 @@ export default function TopicPage() {
           <TopicVisual image={topic.image} imageAlt={topic.imageAlt} accent={accent} />
         </div>
         <p className="image-credit">
-          Imagem ilustrativa do sistema — o material específico do acervo da UFR
+          Imagem ilustrativa do sistema. O material específico do acervo da UFR
           (fotomicrografias, peças anatômicas) será adicionado conforme o projeto avança.
         </p>
       </section>
@@ -119,17 +119,17 @@ export default function TopicPage() {
           <div className="topic-body-main">
             <h2>Descrição</h2>
             <p className="placeholder-text">
-              O conteúdo descritivo desta lâmina — texto teórico-prático, legendas das
-              estruturas e correlações clínicas — será inserido aqui conforme a
+              O conteúdo descritivo desta lâmina, com texto teórico-prático, legendas das
+              estruturas e correlações clínicas, será inserido aqui conforme a
               redação do conteúdo avança, com base na bibliografia de morfologia e em
               artigos científicos de referência.
             </p>
 
             <h2>Estruturas em destaque</h2>
             <ul className="placeholder-list">
-              <li>Estrutura 1 — a ser definida</li>
-              <li>Estrutura 2 — a ser definida</li>
-              <li>Estrutura 3 — a ser definida</li>
+              <li>Estrutura 1: a ser definida</li>
+              <li>Estrutura 2: a ser definida</li>
+              <li>Estrutura 3: a ser definida</li>
             </ul>
           </div>
 

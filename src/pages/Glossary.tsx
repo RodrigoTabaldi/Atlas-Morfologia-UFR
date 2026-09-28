@@ -95,7 +95,7 @@ export default function Glossary() {
       <section className="info-section info-section-muted">
         <h2>Em construção</h2>
         <p>
-          Este glossário vai crescer junto com o atlas — novos termos serão adicionados
+          Este glossário vai crescer junto com o atlas. Novos termos serão adicionados
           conforme cada sistema for desenvolvido, sempre com base na bibliografia de
           referência do projeto.
         </p>

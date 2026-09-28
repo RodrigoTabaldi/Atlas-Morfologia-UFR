@@ -74,7 +74,7 @@ export const glossaryTerms: GlossaryTerm[] = [
   {
     term: "Gastrulação",
     definition:
-      "Processo pelo qual o embrião se reorganiza em três camadas germinativas — ectoderma, mesoderma e endoderma —, que originarão todos os tecidos do corpo.",
+      "Processo pelo qual o embrião se reorganiza em três camadas germinativas (ectoderma, mesoderma e endoderma), que originarão todos os tecidos do corpo.",
     area: "Embriologia",
   },
   {

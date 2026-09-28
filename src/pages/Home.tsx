@@ -73,7 +73,7 @@ export default function Home() {
           </h1>
           <p className="hero-lede">
             Um atlas digital e interativo de biologia celular, histologia, embriologia e
-            anatomia — construído para integrar teoria e prática no ensino das ciências
+            anatomia, construído para integrar teoria e prática no ensino das ciências
             biológicas e da saúde.
           </p>
           <div className="hero-actions">

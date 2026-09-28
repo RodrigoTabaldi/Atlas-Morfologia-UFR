@@ -7,7 +7,7 @@ import "./Layout.css";
 
 function Logomark() {
   return (
-    <Link to="/" className="brandmark" aria-label="Atlas de Morfologia — início">
+    <Link to="/" className="brandmark" aria-label="Atlas de Morfologia, início">
       <img src={ufrLogo} alt="" className="brandmark-logo" />
       <span className="brandmark-text">
         <strong>Universidade Federal de Rondonópolis</strong>
@@ -126,12 +126,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <img src={ufrLogo} alt="UFR" className="footer-logo" />
           <div className="footer-text">
             <p>
-              <strong>Morfologia em Foco</strong> — Atlas descritivo de biologia celular,
+              <strong>Morfologia em Foco.</strong> Atlas descritivo de biologia celular,
               tecidual, estrutural e do desenvolvimento.
             </p>
             <p className="footer-meta">
               Faculdade de Ciências da Saúde · Universidade Federal de Rondonópolis (UFR)
             </p>
+            <p className="footer-meta">Desenvolvedor e aluno de Engenharia de Software: Rodrigo Tabaldi</p>
           </div>
         </div>
       </footer>
