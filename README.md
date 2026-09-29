@@ -1,250 +1,346 @@
-# Morfologia em Foco — Atlas Digital (UFR)
+# Atlas de Morfologia UFR
 
-Esqueleto de aplicação React + TypeScript para o atlas de morfologia da
-Universidade Federal de Rondonópolis (UFR), com os 15 tópicos previstos no
-projeto já estruturados como páginas navegáveis, cada um com nome e imagem
-ilustrativa próprios — sem numeração ou divisão por unidade na interface.
+**A digital morphology atlas for cell biology, histology, embryology and human anatomy.**
 
-## Stack
+[English](#english) | [Português](#português)
 
-- **React 19 + TypeScript** (Vite)
-- **react-router-dom** para navegação entre páginas
-- CSS puro com variáveis (tokens) — sem framework de UI, para manter o
-  bundle pequeno e o visual sob controle total
+[![React](https://img.shields.io/badge/React-19-149eca?logo=react&logoColor=white)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-8-646cff?logo=vite&logoColor=white)](https://vite.dev/)
+[![React Router](https://img.shields.io/badge/React_Router-7-ca4245?logo=reactrouter&logoColor=white)](https://reactrouter.com/)
 
-## Como rodar
+<a id="english"></a>
+## English
+
+### Overview
+
+Atlas de Morfologia UFR (also presented in the interface as **Morfologia em Foco**) is a digital learning project from the Federal University of Rondonópolis (UFR). It brings together a visual catalog of 15 morphology topics, a searchable academic glossary and topic-based exercise pages.
+
+The project aims to support morphology teaching and learning at UFR and to grow into a resource used across Brazil. Nationwide use is an objective of the project, not a claim about its current reach.
+
+### The problem it addresses
+
+Morphology study spans cell biology, tissues, embryonic development and anatomy. The atlas provides one navigable place to organize these subjects and their visual references, with room for reviewed descriptions and practical learning material as the project develops.
+
+### Key features
+
+- Browse 15 topics through a responsive catalog and shared topic-page template.
+- Search glossary definitions and filter by Cytology, Histology, Embryology or Anatomy.
+- Browse exercise availability by topic; the current repository has no published exercise PDFs.
+- Use responsive navigation and topic-to-topic links.
+- View locally bundled illustrations, with separate full-size and card-sized topic images.
+- Respect the operating system's reduced-motion preference.
+
+### Screenshots
+
+| Home | Topic page |
+|:---:|:---:|
+| ![Atlas home page](docs/images/home.png) | ![Cell topic page](docs/images/topic.png) |
+
+| Exercises | Glossary |
+|:---:|:---:|
+| ![Exercises page](docs/images/exercises.png) | ![Academic glossary page](docs/images/glossary.png) |
+
+### Tech stack
+
+| Area | Technologies and evidence |
+|---|---|
+| Frontend | React 19, TypeScript 6, React Router 7, CSS |
+| Backend | None; there is no server API or authentication in this repository |
+| Database | None; topics, glossary terms and exercise metadata are TypeScript data |
+| Infrastructure | Vite development/build tooling; `vercel.json` configures SPA route rewrites for Vercel. No Docker or CI/CD configuration is present |
+| Tools | npm, TypeScript compiler, Oxlint |
+
+### Architecture
+
+The browser loads a single-page React application. React Router maps URLs to page components; topic, glossary and exercise metadata is imported from local TypeScript modules. Vite bundles the application and its image assets. There is no server API or persistent data layer in this repository.
+
+```mermaid
+flowchart LR
+    Visitor[Visitor browser] --> Router[React Router]
+    Router --> Pages[React pages and components]
+    Pages --> Data[Local TypeScript content]
+    Pages --> Assets[Bundled illustrations]
+    Pages --> Static[Static exercise PDF paths]
+    Build[Vite build] --> Deploy[Static hosting]
+    Deploy --> Visitor
+```
+
+### Simplified project structure
+
+```text
+src/
+├── assets/          # UFR identity, hero and topic illustrations
+├── components/      # Shared layout and topic cards
+├── data/            # Topic, glossary and exercise metadata
+├── hooks/           # Viewport visibility hook
+├── pages/           # Home, topic, exercises, glossary and about pages
+├── styles/          # Theme tokens and topic accent helpers
+├── App.tsx          # Route definitions
+└── main.tsx         # React entry point and browser router
+public/
+└── exercicios/      # Static PDFs (none currently published)
+docs/images/         # Project screenshots used in this README
+```
+
+### Technical decisions
+
+- **Shared topic template:** all 15 topic URLs use one page component backed by topic data, keeping presentation consistent and content additions localized.
+- **Static content modules:** topic definitions, glossary entries and exercise links are plain TypeScript data. This matches the current read-only scope without adding a database or API dependency.
+- **Two illustration sizes:** topic illustrations have full-size and card-size WebP variants to avoid loading large images in the home grid.
+- **CSS motion and theme tokens:** transitions and accent colors use CSS, avoiding a UI or animation dependency; motion is disabled when reduced motion is requested.
+- **SPA hosting rewrite:** `vercel.json` sends application routes to `index.html`, so client-side routes can be opened directly on Vercel.
+
+### Engineering Highlights
+
+- Typed content models for topics, glossary terms and exercise files.
+- Client-side routing with parameterized topic pages and adjacent-topic navigation.
+- Search and category filtering over locally maintained glossary content.
+- Reusable React components and data-driven page rendering.
+- Responsive interface, image fallbacks and reduced-motion support.
+- Static asset delivery configured for single-page application hosting.
+
+### API
+
+There is no API in this repository. The application does not make backend requests.
+
+### Data model
+
+There is no database. The main TypeScript data shapes are:
+
+- `Topic`: slug, title, discipline, summary, planned content type, status, accent and illustration references.
+- `GlossaryTerm`: term, definition and subject area.
+- `ExerciseFile`: topic slug, display title, static PDF path and optional description.
+
+### Run locally
+
+#### Prerequisites
+
+- Node.js compatible with the installed Vite version (Node.js 20.19+ or 22.12+).
+- npm.
+
+#### Install and run
 
 ```bash
-npm install
-npm run dev       # ambiente de desenvolvimento, http://localhost:5173
-npm run build     # build de produção em /dist
-npm run preview   # serve o build de produção localmente
+git clone https://github.com/RodrigoTabaldi/Atlas-Morfologia-UFR.git
+cd Atlas-Morfologia-UFR
+npm ci
+npm run dev
 ```
 
-## Estrutura de pastas
+Open the local URL printed by Vite (usually `http://localhost:5173`).
 
+Other available commands:
+
+```bash
+npm run build    # type-check and create the production bundle in dist/
+npm run preview  # serve the production bundle locally
+npm run lint     # run Oxlint
 ```
+
+### Environment variables
+
+No environment variables are required by the current application.
+
+### Challenges & learnings
+
+The implementation separates high-resolution topic artwork from smaller catalog thumbnails, and centralizes 15 topic pages in one data-driven template. These choices reduce duplicated page markup and unnecessary image weight in the catalog. The current content model also makes the boundary clear between illustrative scaffolding and material that still needs to be produced and reviewed.
+
+### Roadmap
+
+**Implemented in the current codebase**
+
+- Responsive navigation and a catalog for 15 morphology topics.
+- Topic pages with illustrative images, status and planned content metadata.
+- Searchable, subject-filtered glossary.
+- Topic-based exercise listing and static PDF link support.
+- Vite build and Vercel single-page route rewrite configuration.
+
+**Planned / in progress**
+
+- Complete and review the descriptions and highlighted structures for each topic.
+- Replace illustrative references with UFR collection material as it becomes available.
+- Develop the planned interactive diagrams and image galleries.
+- Publish exercise PDFs and continue expanding the glossary.
+- Advance the project toward its goal of nationwide use.
+
+### Project status
+
+**In development.** All 15 topic routes are scaffolded; the cell topic is marked in production and the other 14 are planned. Topic descriptions and highlighted structures are placeholders. No exercise PDF is currently registered. The repository contains the frontend only.
+
+### Author
+
+**Rodrigo Tabaldi**
+<br />
+Software Engineering student focused on Backend Development, .NET and Full Stack applications.
+
+[GitHub repository](https://github.com/RodrigoTabaldi/Atlas-Morfologia-UFR)
+
+---
+
+<a id="português"></a>
+## Português
+
+### Visão geral
+
+O **Atlas de Morfologia UFR**, também apresentado na interface como **Morfologia em Foco**, é um projeto educacional digital da Universidade Federal de Rondonópolis (UFR). Ele reúne um catálogo visual com 15 tópicos de morfologia, um glossário acadêmico pesquisável e páginas de exercícios organizadas por tópico.
+
+O projeto busca apoiar o ensino e o estudo da morfologia na UFR e crescer como recurso de alcance nacional. O uso em todo o Brasil é um objetivo do projeto, não uma afirmação sobre seu alcance atual.
+
+### Problema que resolve
+
+O estudo da morfologia abrange biologia celular, tecidos, desenvolvimento embrionário e anatomia. O atlas oferece um único espaço navegável para organizar esses assuntos e suas referências visuais, com estrutura para receber descrições revisadas e materiais práticos à medida que o projeto avança.
+
+### Principais funcionalidades
+
+- Navegação por 15 tópicos em um catálogo responsivo e páginas baseadas em um modelo compartilhado.
+- Busca no glossário e filtro por Citologia, Histologia, Embriologia ou Anatomia.
+- Consulta de exercícios por tópico; o repositório ainda não tem PDFs de exercícios publicados.
+- Navegação responsiva e links entre tópicos adjacentes.
+- Ilustrações locais, com versões em alta resolução e versões menores para os cartões.
+- Respeito à preferência do sistema operacional por movimento reduzido.
+
+### Capturas de tela
+
+| Página inicial | Página de tópico |
+|:---:|:---:|
+| ![Página inicial do Atlas](docs/images/home.png) | ![Página do tópico célula](docs/images/topic.png) |
+
+| Exercícios | Glossário |
+|:---:|:---:|
+| ![Página de exercícios](docs/images/exercises.png) | ![Página do glossário acadêmico](docs/images/glossary.png) |
+
+### Tecnologias
+
+| Área | Tecnologias e evidências |
+|---|---|
+| Frontend | React 19, TypeScript 6, React Router 7, CSS |
+| Backend | Não há backend, API de servidor ou autenticação neste repositório |
+| Banco de dados | Não há banco; tópicos, termos e metadados dos exercícios são dados TypeScript |
+| Infraestrutura | Vite para desenvolvimento e build; `vercel.json` configura rewrites de rotas SPA para a Vercel. Não há configuração de Docker ou CI/CD |
+| Ferramentas | npm, compilador TypeScript, Oxlint |
+
+### Arquitetura
+
+O navegador carrega uma aplicação React de página única. O React Router associa URLs aos componentes; os metadados de tópicos, glossário e exercícios são importados de módulos TypeScript locais. O Vite empacota a aplicação e os recursos visuais. Este repositório não contém API de servidor nem camada de persistência.
+
+```mermaid
+flowchart LR
+    Visitante[Navegador do visitante] --> Router[React Router]
+    Router --> Paginas[Páginas e componentes React]
+    Paginas --> Dados[Conteúdo TypeScript local]
+    Paginas --> Imagens[Ilustrações empacotadas]
+    Paginas --> PDFs[Caminhos estáticos para PDFs]
+    Build[Build Vite] --> Hospedagem[Hospedagem estática]
+    Hospedagem --> Visitante
+```
+
+### Estrutura simplificada
+
+```text
 src/
-├── data/
-│   ├── topics.ts          # fonte única de verdade dos 15 tópicos
-│   └── glossary.ts        # termos do glossário acadêmico
-├── hooks/
-│   └── useInView.ts       # anima elementos quando entram na viewport (scroll)
-├── styles/
-│   ├── tokens.css          # paleta de cores, tipografia, espaçamento
-│   └── accent.ts           # helpers para mapear accent -> variável CSS
-├── components/
-│   ├── Layout.tsx/.css      # header, menu mobile, footer
-│   └── TopicCard.tsx/.css   # card usado no grid de sistemas da Home
-├── pages/
-│   ├── Home.tsx/.css        # página inicial com hero 3D + grid de sistemas
-│   ├── About.tsx            # "Sobre o projeto" (resumo do edital)
-│   ├── Exercises.tsx/.css   # "Exercícios" — lista de sistemas
-│   ├── ExerciseUpload.tsx/.css # lista de PDFs de exercícios por sistema
-│   ├── Glossary.tsx/.css    # "Glossário acadêmico" com busca e filtro por área
-│   ├── InfoPage.css         # estilos compartilhados por Sobre/Exercícios/Glossário
-│   └── TopicPage.tsx/.css   # template único usado pelos 15 tópicos
-├── assets/brand/            # logos da UFR e imagem principal do hero
-└── assets/topics/           # uma imagem (alta res.) por sistema
-    └── cards/                # versão reduzida das mesmas imagens, para a Home
-```
-
-```
+├── assets/          # Identidade visual da UFR, hero e ilustrações dos tópicos
+├── components/      # Layout compartilhado e cartões dos tópicos
+├── data/            # Metadados de tópicos, glossário e exercícios
+├── hooks/           # Hook de visibilidade na viewport
+├── pages/           # Início, tópicos, exercícios, glossário e sobre
+├── styles/          # Tokens visuais e helpers de acentuação
+├── App.tsx          # Definição das rotas
+└── main.tsx         # Entrada React e roteador do navegador
 public/
-└── exercicios/              # PDFs de exercícios servidos estaticamente
+└── exercicios/      # PDFs estáticos (nenhum publicado atualmente)
+docs/images/         # Capturas de tela usadas neste README
 ```
 
-## Páginas e navegação
+### Decisões técnicas
 
-O header tem 4 links: **Início**, **Exercícios**, **Glossário** e **Sobre o
-projeto**. Em telas estreitas esses links saem do header e passam para o
-menu mobile (ícone de hambúrguer), junto com a lista dos 15 sistemas.
+- **Modelo compartilhado de tópico:** as 15 URLs de tópicos usam um único componente baseado em dados, mantendo a apresentação consistente e centralizando a inclusão de conteúdo.
+- **Módulos de conteúdo estático:** tópicos, termos do glossário e links de exercícios são dados TypeScript. Isso atende ao escopo atual, que é somente leitura, sem adicionar dependência de API ou banco.
+- **Duas resoluções de ilustração:** os tópicos usam imagens WebP em tamanho completo e miniaturas menores no catálogo, reduzindo o peso carregado pela página inicial.
+- **Animações CSS e tokens visuais:** transições e cores usam CSS, sem dependência de interface ou animação; o movimento é desativado quando o usuário solicita movimento reduzido.
+- **Rewrite para hospedagem SPA:** `vercel.json` encaminha as rotas da aplicação para `index.html`, permitindo abrir diretamente as rotas do cliente na Vercel.
 
-- **Exercícios** (`/exercicios`): lista os 15 sistemas como cartões
-  clicáveis, com uma etiqueta indicando quantos PDFs já existem para
-  cada um ("1 PDF", "2 PDFs" ou "Em breve"). Clicar em um sistema abre
-  `/exercicios/:slug`, que mostra os PDFs cadastrados para aquele tópico
-  com um botão "Abrir PDF" (link direto para o arquivo, em nova aba).
-- **Glossário** (`/glossario`): já tem conteúdo real (termos de
-  citologia, histologia, embriologia e anatomia), com busca por texto e
-  filtro por subárea. Novos termos podem ser adicionados direto em
-  `src/data/glossary.ts`, sem tocar no componente.
+### Destaques de engenharia
 
-### Importante: não há upload público de arquivos
+- Modelos tipados para tópicos, termos do glossário e arquivos de exercícios.
+- Rotas no cliente, páginas parametrizadas e navegação entre tópicos adjacentes.
+- Busca e filtro por área em conteúdo local do glossário.
+- Componentes React reutilizáveis e renderização orientada por dados.
+- Interface responsiva, fallback de imagens e suporte a movimento reduzido.
+- Entrega de recursos estáticos configurada para hospedagem de aplicação de página única.
 
-A página de Exercícios **não tem formulário de envio para o visitante**.
-Isso foi proposital — qualquer pessoa que abrisse o site não pode
-publicar arquivos nele. Quem adiciona exercícios é quem tem acesso ao
-código do projeto, seguindo dois passos simples:
+### API
 
-1. Colocar o arquivo PDF dentro de `public/exercicios/` (essa pasta é
-   servida como está, sem processamento — o que está lá fica acessível
-   pelo caminho `/exercicios/nome-do-arquivo.pdf`)
-2. Registrar uma entrada em `src/data/exercises.ts`, associando o PDF
-   ao `slug` do sistema correspondente:
+Este repositório não possui API. A aplicação não faz requisições a um backend.
 
-```ts
-export const exerciseFiles: ExerciseFile[] = [
-  {
-    topicSlug: "celula",
-    title: "Questões — Biologia celular",
-    file: "/exercicios/celula-questoes.pdf",
-    description: "12 questões de múltipla escolha sobre organelas",
-  },
-];
+### Dados
+
+Não há banco de dados. Os principais formatos TypeScript são:
+
+- `Topic`: slug, título, área, resumo, formato de conteúdo planejado, status, cor de destaque e referências às ilustrações.
+- `GlossaryTerm`: termo, definição e área temática.
+- `ExerciseFile`: slug do tópico, título, caminho estático do PDF e descrição opcional.
+
+### Executar localmente
+
+#### Pré-requisitos
+
+- Node.js compatível com a versão do Vite instalada (Node.js 20.19+ ou 22.12+).
+- npm.
+
+#### Instalação e execução
+
+```bash
+git clone https://github.com/RodrigoTabaldi/Atlas-Morfologia-UFR.git
+cd Atlas-Morfologia-UFR
+npm ci
+npm run dev
 ```
 
-Depois de salvar, o PDF passa a aparecer automaticamente na página
-daquele sistema (e a contagem na lista de Exercícios é atualizada). Não
-precisa editar nenhum componente — só esse arquivo de dados.
+Abra o endereço local informado pelo Vite (normalmente `http://localhost:5173`).
 
-## Sobre as imagens ilustrativas
+Outros comandos disponíveis:
 
-Cada tópico em `topics.ts` importa **duas versões** da mesma imagem:
-
-- `image` → `src/assets/topics/*.webp`, resolução alta (~2048px no lado
-  maior), usada na página de cada tópico (`TopicPage`), onde a imagem
-  aparece grande
-- `cardImage` → `src/assets/topics/cards/*.webp`, resolução reduzida
-  (~700px), usada nos cards da Home, onde a imagem aparece pequena
-
-Servir duas resoluções diferentes evita carregar arquivos pesados de
-~2048px num card de 250px de largura — a Home carrega rápido com as
-miniaturas, e a página de cada sistema mostra a versão em alta definição.
-Ambas têm fundo transparente.
-
-A imagem do hero da Home (`src/assets/brand/imagem-principal.webp`) é
-tratada à parte, dentro do componente `HeroVisual` em `Home.tsx`, também
-em alta resolução (~2400px) já que aparece em destaque.
-
-### Como trocar uma imagem
-
-1. Coloque a versão em alta resolução em `src/assets/topics/` e uma
-   versão reduzida (até ~700px no lado maior) em
-   `src/assets/topics/cards/` — ambas em `.webp` com fundo transparente
-2. Atualize os dois `import`s correspondentes no topo de
-   `src/data/topics.ts` e aponte os campos `image` e `cardImage` do
-   tópico para essas variáveis
-
-Cada `<img>` já tem fallback automático: se uma imagem não carregar,
-aparece um ícone genérico no lugar em vez de quebrar a página.
-
-### Removendo fundo branco de novas imagens
-
-As imagens fornecidas originalmente tinham fundo branco sólido. Para
-manter a mesma estética (sem retângulo branco visível dentro dos
-cards), o fundo foi removido com um script Python simples (Pillow):
-pixels próximos do branco puro (limiar ~235/255 em R, G e B) ficam
-transparentes, e a imagem é recortada nas bordas vazias com
-ImageMagick (`convert img.png -trim +repage ...`). Esse processo é
-seguro para a maioria das imagens 3D com fundo branco como as
-utilizadas aqui, mas vale revisar visualmente cada imagem nova antes
-de publicar (imagens com áreas internas muito claras, ex. ossos muito
-claros ou destaques brancos, podem precisar de um limiar diferente).
-
-## Como adicionar conteúdo a um tópico
-
-Você não precisa criar página nova para cada sistema. Todos os 15
-tópicos usam o mesmo componente `TopicPage.tsx`, que lê os dados de
-`src/data/topics.ts` pela URL (`/topico/:slug`).
-
-### 1. Atualizar o status e metadados do tópico
-
-Em `src/data/topics.ts`, cada tópico tem:
-
-```ts
-{
-  slug: "celula",
-  status: "in-production", // "planned" | "in-production" | "available"
-  contentKind: "interactive-svg", // "interactive-svg" | "photo-gallery" | "mixed"
-  summary: "...",
-  image: "https://...",
-  // ...
-}
+```bash
+npm run build    # verifica os tipos e cria o pacote em dist/
+npm run preview  # serve localmente o pacote de produção
+npm run lint     # executa o Oxlint
 ```
 
-Mude `status` para `"available"` quando o conteúdo da página estiver
-pronto — isso já atualiza a cor do indicador em toda a navegação e nos
-cards da Home automaticamente.
+### Variáveis de ambiente
 
-### 2. Substituir a imagem por conteúdo interativo
+A aplicação atual não exige variáveis de ambiente.
 
-Em `TopicPage.tsx`, o componente `TopicVisual` hoje renderiza a imagem
-estática do Wikimedia. Para um **diagrama SVG interativo** (ex: célula,
-sistema nervoso), o padrão recomendado é:
+### Desafios e aprendizados
 
-- Um arquivo SVG com `id` em cada estrutura clicável
-  (ex: `<path id="nucleo" ... />`)
-- Um componente React que faz `onMouseEnter`/`onClick` em cada `id` e
-  mostra um tooltip ou painel lateral com a legenda
-- Manter as cores do SVG usando as variáveis de `tokens.css`
-  (`var(--azul)`, `var(--cobalto)`, etc.) para ficar consistente com o
-  resto do atlas
+A implementação separa ilustrações em alta resolução das miniaturas do catálogo e centraliza as páginas dos 15 tópicos em um único modelo orientado por dados. Essas escolhas reduzem a duplicação de marcação e o peso de imagens desnecessariamente grandes no catálogo. O modelo de conteúdo também deixa clara a diferença entre a estrutura ilustrativa existente e o material que ainda precisa ser produzido e revisado.
 
-Para uma **galeria de fotos** (ex: lâminas histológicas, peças
-anatômicas — como no modelo de referência), o padrão recomendado é um
-grid de miniaturas com um visualizador em destaque (lightbox).
+### Roadmap
 
-### 3. Preencher a descrição
+**Implementado no código atual**
 
-As seções "Descrição" e "Estruturas em destaque" em `TopicPage.tsx`
-atualmente têm texto de placeholder em itálico. Substitua por conteúdo
-real conforme a redação avançar — não há necessidade de mudar a
-estrutura, só o texto.
+- Navegação responsiva e catálogo com 15 tópicos de morfologia.
+- Páginas de tópicos com imagens ilustrativas, status e metadados do conteúdo planejado.
+- Glossário com busca e filtro por área.
+- Lista de exercícios por tópico e suporte a links de PDFs estáticos.
+- Build com Vite e configuração de rotas SPA para Vercel.
 
-## Paleta e identidade visual
+**Planejado / em andamento**
 
-As cores derivam da marca da UFR e foram tratadas como tons de "papel
-científico" (fundo claro, tinta densa), com quatro acentos usados para
-diferenciar tópicos e estados:
+- Completar e revisar as descrições e estruturas em destaque de cada tópico.
+- Substituir referências ilustrativas por material do acervo da UFR conforme sua disponibilidade.
+- Desenvolver os diagramas interativos e as galerias de imagens planejados.
+- Publicar PDFs de exercícios e ampliar o glossário.
+- Avançar em direção ao objetivo de uso em escala nacional.
 
-| Variável       | Uso                                  |
-|----------------|---------------------------------------|
-| `--azul`       | Marinho institucional                 |
-| `--cobalto`    | Azul médio, links e estado ativo      |
-| `--verde`      | Acento secundário                     |
-| `--ambar`      | Acento de destaque/"interativo"       |
+### Status do projeto
 
-Cada tópico em `topics.ts` tem um campo `accent` que escolhe uma dessas
-quatro cores para sua faixa de cor (borda superior do card, badge, borda
-ativa na sidebar).
+**Em desenvolvimento.** As rotas dos 15 tópicos estão estruturadas; o tópico célula está marcado como em produção e os outros 14 como planejados. As descrições e estruturas em destaque ainda são placeholders. Atualmente nenhum PDF de exercício está registrado. Este repositório contém somente o frontend.
 
-## Animações
+### Autor
 
-O site usa animações CSS (sem biblioteca externa) em praticamente todo
-canto: cards e seções entram com fade + leve deslocamento ao carregar a
-página, o cabeçalho desliza para baixo, o menu mobile abre com os itens
-em cascata, a troca de rota faz um fade suave no conteúdo principal, e
-elementos interativos (cards, botões, links do pager, ficha lateral)
-têm micro-interações de hover.
+**Rodrigo Tabaldi**
+<br />
+Estudante de Engenharia de Software com foco em desenvolvimento Backend, .NET e aplicações Full Stack.
 
-A imagem principal do hero e as imagens dos cards de sistema têm um
-efeito de inclinação 3D que segue o cursor do mouse (`perspective` +
-`rotateX`/`rotateY` calculados a partir da posição do ponteiro dentro do
-elemento). É puramente decorativo — não depende de nenhuma lib, só
-`onMouseMove`/`onMouseLeave` em React e CSS `transform-style: preserve-3d`.
-
-Pontos de referência se quiser ajustar ou adicionar animações novas:
-
-- `src/hooks/useInView.ts` — hook que detecta quando um elemento entra
-  na viewport (usado para animar o título "Selecione um sistema" da
-  Home conforme o usuário rola a página, em vez de só no carregamento)
-- `--card-delay` em `TopicCard.css`/`.tsx` — delay escalonado por
-  índice, usado para o efeito de cascata nos cards
-- Qualquer seletor com `@keyframes ... In` ou `...FadeUp` nos arquivos
-  `.css` de cada página segue o mesmo padrão: `opacity: 0` por padrão e
-  uma animação com `forwards` que a leva a `opacity: 1`
-
-Todas as animações respeitam `prefers-reduced-motion: reduce` — quem
-tem essa preferência ativada no sistema operacional não vê nenhuma
-delas (o conteúdo aparece direto, sem movimento).
-
-## Próximos passos sugeridos
-
-1. Definir, por tópico, se o conteúdo visual será SVG interativo, galeria
-   de fotos, ou misto (já há um campo para isso, só falta o conteúdo real)
-2. Substituir as imagens de referência do Wikimedia por material próprio
-3. Substituir os textos de placeholder por conteúdo revisado
-4. Quando o projeto for publicado, considerar build estático
-   (`npm run build`) hospedado em GitHub Pages, Vercel, ou no domínio
-   institucional da UFR
+[Repositório no GitHub](https://github.com/RodrigoTabaldi/Atlas-Morfologia-UFR)
